@@ -28,3 +28,6 @@ docker run -d --name dzzoffice -p 80:80 land007/dzzoffice:latest
 如需做数据持久化存储，可加参数`-v $PWD:/var/www/html/data`挂载数据卷到宿主机上，避免容器删除数据丢失。
 
 - 注意：挂载数据卷后，需要使用命令`docker exec -it dzzoffice bash` 进入容器内，执行命令 `chown -R www-data:www-data /var/www/html/data` 给data目录读写权限
+
+### 双机部署初探
+采用同样的docker方式增加一个dzzoffice容器，共用mysql和onlyoffice，启动后需要两次完全相同的初始化过程；初始化完成以后，可以共享session；但是**必须**采用手动安装app方式分别在两个dzzoffice容器内安装应用才能生效，即便如此还需要进一步测试
